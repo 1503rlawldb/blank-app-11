@@ -57,15 +57,6 @@ div[data-baseweb="alert"] {
     text-align: center;
 }
 
-/* 모든 p 태그(줄거리, 배우 목록 등) 색상 고정 */
-p {
-    color: #D4AF37;
-}
-
-strong {
-    color: #D4AF37;
-}
-
 /* 장르 버튼 스타일 */
 .stButton > button {
     background-color: #000000;
@@ -547,9 +538,6 @@ if search_term or st.session_state.selected_genre != "전체":
         for musical in final_filtered_musicals:
             text_color = musical.get('text_color', default_text_color)
             
-            # 반짝이는 효과를 위한 컨테이너
-            st.markdown('<div class="flash-effect">', unsafe_allow_html=True)
-            
             st.markdown(f"<h2 style='text-align: center; color: #C0A062;'>{musical['title']}</h2>", unsafe_allow_html=True)
             st.markdown(f"<p style='text-align: center; color: {text_color};'>{musical['summary']}</p>", unsafe_allow_html=True)
 
@@ -557,5 +545,4 @@ if search_term or st.session_state.selected_genre != "전체":
                 for role, actors in musical['cast'].items():
                     st.markdown(f"<p style='text-align: center; color: {text_color};'><strong>{role}:</strong> {', '.join(actors)}</p>", unsafe_allow_html=True)
             
-            st.markdown('</div>', unsafe_allow_html=True)
             st.divider()
