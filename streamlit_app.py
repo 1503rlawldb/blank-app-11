@@ -8,23 +8,73 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- 국가별 국기 이미지 (Base64 인코딩된 SVG) ---
-# 외부 파일 없이 코드 내에서 이미지를 처리하기 위해 Base64로 인코딩합니다.
-flags = {
-    "대한민국": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSI5MDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAgMGg5MDB2NjAwSDB6IiBmaWxsPSJub25lIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9Ii4xNSIvPjxjaXJjbGUgY3g9IjQ1MCIgY3k9IjMwMCIgcj0iMTUwIiBmaWxsPSIjY2QyZTNjIi8+PHBhdGggZD0iTTQ1MCAxNTBBNTUwIDE1MCAwIDAgMCA0NTAgNDUwYzgzIDAgMTUwLTY3IDE1MC0xNTBzLTY3LTE1MC0xNTAtMTUweiIgZmlsbD0iIzAwNDc5MSIvPjxwYXRoIGQ9Ik0xNzUgMTI1bDI1IDEwMCAyNS0xMDB6bS0yNSAyNWgxMDBtLTI1IDI1aC01MG0yNSAyNWgxMDBtLTc1IDI1aDUwbS0xMjUgMTI1bDI1IDEwMCAyNS0xMDB6bS0yNSAyNWgxMDBtLTI1IDI1aC01MG0yNSAyNWgxMDBtLTc1IDI1aDUwbS0yNSA1MGgtNTBtNDUwLTQyNWwyNSAxMDAgMjUtMTAwem0tMjUgMjVoMTAwbS0yNSAyNWgtNTBtMjUgMjVoMTAwbS03NSAyNWg1MG0xMDAgMjI1bDI1IDEwMCAyNS0xMDB6bS0yNSAyNWgxMDBtLTI1IDI1aC01MG0yNSAyNWgxMDBtLTc1IDI1aDUwIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMjUiLz48L3N2Zz4=",
-    "미국": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjM1IDY1MCI+PHBhdGggZmlsbD0iI0IxMTIzNCIgZD0iTTAgMGgxMjM1djY1MEgweiIvPjxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0wIDUwaDEyMzV2NTBIMHptMCAxMDBoMTIzNXY1MEgweiBtMCAxMDBoMTIzNXY1MEgweiBtMCAxMDBoMTIzNXY1MEgweiBtMCAxMDBoMTIzNXY1MEgweiBtMCAxMDBoMTIzNXY1MEgweiIvPjxwYXRoIGZpbGw9IiMwMDIxNEQiIGQ9Ik0wIDBoNDk0djM1MEgweiIvPjxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik01MCAzMGw4IDI1aDI2bC0yMCAxOGw4IDI1bC0yMS0xNWwtMjAgMTVsOC0yNWwtMjAtMThoMjZ6IG04MyAwbDggMjVoMjZsLTIwIDE4bDggMjVsLTIxLTE1bC0yMCAxNWw4LTI1bC0yMC0xOGgyNnogbTgzIDBsOCAyNWgyNmwtMjAgMThsOCAyNWwtMjEtMTVsLTIwIDE1bDgtMjVsLTIwLTE4aDI2eiBtODMgMGw4IDI1aDI2bC0yMCAxOGw4IDI1bC0yMS0xNWwtMjAgMTVsOC0yNWwtMjAtMThoMjZ6IG04MyAwbDggMjVoMjZsLTIwIDE4bDggMjVsLTIxLTE1bC0yMCAxNWw4LTI1bC0yMC0xOGgyNnogbS0zNzQgNTBsOCAyNWgyNmwtMjAgMThsOCAyNWwtMjEtMTVsLTIwIDE1bDgtMjVsLTIwLTE4aDI2eiBtODMgMGw4IDI1aDI2bC0yMCAxOGw4IDI1bC0yMS0xNWwtMjAgMTVsOC0yNWwtMjAtMThoMjZ6IG04MyAwbDggMjVoMjZsLTIwIDE4bDggMjVsLTIxLTE1bC0yMCAxNWw4LTI1bC0yMC0xOGgyNnogbTgzIDBsOCAyNWgyNmwtMjAgMThsOCAyNWwtMjEtMTVsLTIwIDE1bDgtMjVsLTIwLTE4aDI2eiBtLTMzMyA1MGw4IDI1aDI2bC0yMCAxOGw4IDI1bC0yMS0xNWwtMjAgMTVsOC0yNWwtMjAtMThoMjZ6IG04MyAwbDggMjVoMjZsLTIwIDE4bDggMjVsLTIxLTE1bC0yMCAxNWw4LTI1bC0yMC0xOGgyNnogbTgzIDBsOCAyNWgyNmwtMjAgMThsOCAyNWwtMjEtMTVsLTIwIDE1bDgtMjVsLTIwLTE4aDI2eiBtODMgMGw4IDI1aDI2bC0yMCAxOGw4IDI1bC0yMS0xNWwtMjAgMTVsOC0yNWwtMjAtMThoMjZ6IG04MyAwbDggMjVoMjZsLTIwIDE4bDggMjVsLTIxLTE1bC0yMCAxNWw4LTI1bC0yMC0xOGgyNnogbS0zNzQgNTBsOCAyNWgyNmwtMjAgMThsOCAyNWwtMjEtMTVsLTIwIDE1bDgtMjVsLTIwLTE4aDI2eiBtODMgMGw4IDI1aDI2bC0yMCAxOGw4IDI1bC0yMS0xNWwtMjAgMTVsOC0yNWwtMjAtMThoMjZ6IG04MyAwbDggMjVoMjZsLTIwIDE4bDggMjVsLTIxLTE1bC0yMCAxNWw4LTI1bC0yMC0xOGgyNnogbTgzIDBsOCAyNWgyNmwtMjAgMThsOCAyNWwtMjEtMTVsLTIwIDE1bDgtMjVsLTIwLTE4aDI2eiBtLTMzMyA1MGw4IDI1aDI2bC0yMCAxOGw4IDI1bC0yMS0xNWwtMjAgMTVsOC0yNWwtMjAtMThoMjZ6IG04MyAwbDggMjVoMjZsLTIwIDE4bDggMjVsLTIxLTE1bC0yMCAxNWw4LTI1bC0yMC0xOGgyNnogbTgzIDBsOCAyNWgyNmwtMjAgMThsOCAyNWwtMjEtMTVsLTIwIDE1bDgtMjVsLTIwLTE4aDI2eiBtODMgMGw4IDI1aDI2bC0yMCAxOGw4IDI1bC0yMS0xNWwtMjAgMTVsOC0yNWwtMjAtMThoMjZ6IG04MyAwbDggMjVoMjZsLTIwIDE4bDggMjVsLTIxLTE1bC0yMCAxNWw4LTI1bC0yMC0xOGgyNnoiLz48L3N2Zz4=",
-    "영국": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzMCIgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjAwIj48Y2xpcFBhdGggaWQ9InUiPjxwYXRoIGQ9Ik0zMCwxNWg2MHYxNUgzMHpNMzAsMTVoLTMwdi0xNUgzMHpNMzAsMTVILTB2MTVINDB6TTMwLDE1SDEyMHYtMTVINDB6Ii8+PC9jbGlwUGF0aD48cGF0aCBkPSJNMCAwaDYwdjMwSDB6IiBmaWxsPSIjMDAyNDdEIi8+PHBhdGggZD0iTTAgMEw2MCAzME0wIDMwTDYwIDAiIHN0cm9rZT0iI0ZGRiIgc3Ryb2tlLXdpZHRoPSI2Ii8+PHBhdGggZD0iTTAgMEw2MCAzME0wIDMwTDYwIDAiIHN0cm9rZT0iI0NGMTQyQiIgc3Ryb2tlLXdpZHRoPSI0IiBjbGlwLXBhdGg9InVybCgjdSkiLz48cGF0aCBkPSJNMzAsMEgzMFYzME0wLDE1SDEyMEgxNSIgc3Ryb2tlPSIjRkZGIiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTMwLDBIMzBWNDVNLTE1LDE1SDEyMEgxNSIgc3Ryb2tlPSIjQ0YxNDJCIiBzdHJva2Utd2lkdGg9IjYiLz48L3N2Zz4=",
-    "프랑스": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cGF0aCBmaWxsPSIjMDA1N2FjIiBkPSJNMCAwaDMwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMzAwIDBoMzAwdiYwMEgzMDB6Ii8+PHBhdGggZmlsbD0iI2VkMmQyMCIgZD0iTTYwMCAwaDMwMHY2MDBINjAweiIvPjwvc3ZnPg==",
-    "일본": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjQ1MCIgY3k9IjMwMCIgcj0iMTgwIiBmaWxsPSIjYmUwMDI2Ii8+PC9zdmc+",
-    "오스트리아": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgNjAwIj48cGF0aCBmaWxsPSIjZWQyOTM5IiBkPSJNMCAwaDkwMHY2MDBIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAyMDBoOTAwdiYwMEgweiIvPjwvc3ZnPg=="
+# --- 세련된 배경과 커스텀 스타일 적용 ---
+st.markdown("""
+<style>
+/* Streamlit 앱의 메인 배경 */
+.stApp {
+    background-image: linear-gradient(135deg, #1a2a6c, #000000);
+    background-attachment: fixed;
+    background-size: cover;
+    color: #e0e0e0; /* 기본 텍스트 색상을 밝게 */
 }
 
+/* 헤더와 제목 색상 */
+h1, h2, h3 {
+    color: #ffffff;
+}
+
+/* 검색창 스타일 */
+.stTextInput > div > div > input {
+    background-color: #000000; /* 배경을 검은색으로 변경 */
+    color: #FFFFFF; /* 텍스트 색상을 흰색으로 변경 */
+    border: 1px solid #C0A062; /* 골드 테두리 추가 */
+    border-radius: 20px;
+    text-align: center; /* 검색창 텍스트 가운데 정렬 */
+}
+
+/* 확장(expander) 컴포넌트 스타일 */
+.stExpander {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    text-align: center; /* 확장 내부 텍스트 가운데 정렬 */
+}
+.stExpander header {
+    color: #D4AF37 !important; /* 확장 헤더 텍스트 골드 */
+}
+
+/* 구분선 색상 */
+hr {
+    background-color: #444444;
+}
+
+/* 검색 결과 알림창 스타일 */
+div[data-baseweb="alert"] {
+    background-color: #000000 !important; /* 검은색 배경 */
+    color: #FFFFFF !important; /* 흰색 텍스트 */
+    border: 1px solid #C0A062 !important; /* 골드 테두리 추가 */
+    border-radius: 10px;
+    text-align: center; /* 알림창 텍스트 가운데 정렬 */
+}
+
+/* 모든 p 태그(줄거리, 배우 목록 등) 색상 고정 */
+p {
+    color: #D4AF37;
+}
+
+strong {
+    color: #D4AF37;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
 # --- 뮤지컬 데이터 (30개) ---
-# 각 뮤지컬 정보에 원작 국가 정보를 추가합니다.
+# 국기 관련 데이터를 제거합니다.
 musicals_data = [
     {
         "title": "프랑켄슈타인",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #2c3e50, #4a5a6a, #000000)", # 폭풍우 치는 밤, 차가운 실험실
         "summary": "19세기 유럽, 천재 과학자 빅터 프랑켄슈타인이 생명 창조에 성공하지만, 그가 만든 피조물에게 '괴물'이라는 이름으로 버림받으며 비극이 시작됩니다.",
         "cast": {
@@ -36,7 +86,6 @@ musicals_data = [
     },
     {
         "title": "지킬앤하이드",
-        "origin": "미국",
         "background_css": "linear-gradient(135deg, #4d0000, #1a0000, #000000)", # 붉은 약물, 어두운 런던의 밤
         "summary": "인간의 내면에 공존하는 선과 악을 분리하려는 의사 '지킬'이 실험을 통해 자신의 또 다른 인격인 '하이드'를 만들어내면서 벌어지는 비극적 스릴러입니다.",
         "cast": {
@@ -47,7 +96,6 @@ musicals_data = [
     },
     {
         "title": "오페라의 유령",
-        "origin": "영국",
         "background_css": "linear-gradient(135deg, #000033, #1a0000, #000000)", # 깊은 지하, 붉은 장미, 푸른 밤
         "summary": "파리 오페라 하우스 지하에 숨어 사는 천재 음악가 '유령'과 프리마돈나 '크리스틴', 그리고 귀족 '라울'의 비극적이고 아름다운 사랑 이야기입니다.",
         "cast": {
@@ -58,7 +106,6 @@ musicals_data = [
     },
     {
         "title": "레미제라블",
-        "origin": "프랑스",
         "background_css": "linear-gradient(135deg, #001f4d, #3d0000, #2a2a2a)", # 프랑스 국기, 혁명의 어둠
         "summary": "빵 한 조각을 훔친 죄로 19년간 감옥살이를 한 장발장의 기구한 인생을 통해 인간의 존엄성과 사랑, 용서를 다룬 빅토르 위고 원작의 대서사시입니다.",
         "cast": {
@@ -69,7 +116,6 @@ musicals_data = [
     },
     {
         "title": "데스노트",
-        "origin": "일본",
         "background_css": "linear-gradient(135deg, #330000, #1a1a1a, #4a0000)", # 붉은 사과, 사신계의 어둠
         "summary": "이름이 적히면 죽는 '데스노트'를 손에 넣은 천재 고등학생 라이토와 명탐정 엘(L)의 치열한 두뇌 싸움을 그린, 동명 만화 원작의 뮤지컬입니다.",
         "cast": {
@@ -81,7 +127,6 @@ musicals_data = [
     },
     {
         "title": "드라큘라",
-        "origin": "영국",
         "background_css": "linear-gradient(135deg, #6b0000, #000000)", # 핏빛 사랑, 영원한 밤
         "summary": "수백 년 동안 한 여인만을 사랑해 온 드라큘라 백작의 이야기를 다룹니다. 거부할 수 없는 매력의 뱀파이어와 그를 둘러싼 인물들의 운명적인 사랑과 갈등을 그립니다.",
         "cast": {
@@ -92,7 +137,6 @@ musicals_data = [
     },
     {
         "title": "레베카",
-        "origin": "오스트리아",
         "background_css": "linear-gradient(135deg, #00264d, #333333)", # 맨덜리 저택의 밤바다, 불길한 그림자
         "summary": "죽은 전 부인 '레베카'의 그림자가 드리운 맨덜리 저택에 새로 들어온 '나(I)'가 집사 '댄버스 부인'과 맞서며 사랑과 자아를 찾아가는 미스터리 스릴러입니다.",
         "cast": {
@@ -103,7 +147,6 @@ musicals_data = [
     },
     {
         "title": "엘리자벳",
-        "origin": "오스트리아",
         "background_css": "linear-gradient(135deg, #2a2a2a, #5c5c8a, #000000)", # 죽음의 그림자, 황실의 차가움
         "summary": "오스트리아 황후 '엘리자벳'의 일대기에 '죽음(Der Tod)'이라는 판타지적 요소를 더해, 자유를 갈망했던 그녀의 삶을 드라마틱하게 그린 작품입니다.",
         "cast": {
@@ -114,7 +157,6 @@ musicals_data = [
     },
     {
         "title": "위키드",
-        "origin": "미국",
         "background_css": "linear-gradient(135deg, #00552e, #000000)", # 에메랄드 시티의 빛과 그림자
         "summary": "도로시가 오즈에 오기 전, 초록 마녀 엘파바와 금발 마녀 글린다의 숨겨진 우정과 성장을 통해 선과 악의 편견을 깨는 감동적인 이야기입니다.",
         "cast": {
@@ -125,7 +167,6 @@ musicals_data = [
     },
     {
         "title": "헤드윅",
-        "origin": "미국",
         "background_css": "linear-gradient(135deg, #ff0066, #330066, #000000)", # 화려한 글램록, 상처의 푸른빛
         "summary": "동독 출신의 트랜스젠더 록 가수 '헤드윅'이 자신의 실패한 사랑과 음악 인생에 대한 이야기를 콘서트 형식으로 풀어내는 모노드라마 뮤지컬입니다.",
         "cast": {
@@ -135,7 +176,6 @@ musicals_data = [
     },
     {
         "title": "영웅",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #4a4a4a, #1a1a1a)", # 하얼빈의 눈, 굳은 결의
         "summary": "1909년, 하얼빈역에서 이토 히로부미를 저격한 안중근 의사의 마지막 1년을 그린 대한민국 대표 창작 뮤지컬입니다.",
         "cast": {
@@ -146,7 +186,6 @@ musicals_data = [
     },
     {
         "title": "웃는 남자",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #b30000, #2a002a, #000000)", # 붉은 귀족, 보랏빛 슬픔
         "summary": "17세기 영국, 찢어진 입을 가진 기형적인 외모의 '그윈플렌'이 유랑극단에서 광대로 살아가며 겪는 사랑과 사회 부조리에 대한 이야기입니다.",
         "cast": {
@@ -158,7 +197,6 @@ musicals_data = [
     },
     {
         "title": "노트르담 드 파리",
-        "origin": "프랑스",
         "background_css": "linear-gradient(135deg, #4a2a00, #1a1a1a)", # 대성당의 석양, 스테인드글라스
         "summary": "15세기 파리, 추악한 외모의 꼽추 종지기 '콰지모도'와 아름다운 집시 여인 '에스메랄다', 그리고 그녀를 둘러싼 세 남자의 비극적인 사랑과 숙명을 그린 작품입니다.",
         "cast": {
@@ -169,7 +207,6 @@ musicals_data = [
     },
     {
         "title": "모차르트!",
-        "origin": "오스트리아",
         "background_css": "linear-gradient(135deg, #cc0000, #333333)", # 천재의 붉은 코트, 운명의 그림자
         "summary": "천재 음악가 모차르트의 삶을 그리고 있지만, 그의 천재성을 상징하는 아이 '아마데'와의 갈등을 통해 자유를 갈망했던 인간 '볼프강'의 고뇌를 조명합니다.",
         "cast": {
@@ -180,7 +217,6 @@ musicals_data = [
     },
     {
         "title": "시카고",
-        "origin": "미국",
         "background_css": "linear-gradient(135deg, #990000, #1a1a1a, #000000)", # 관능적인 재즈바, 어두운 욕망
         "summary": "1920년대 재즈 시대의 시카고, 살인을 저지르고도 스타가 되길 꿈꾸는 '록시 하트'와 '벨마 켈리'의 이야기를 통해 당시 사회의 부조리와 허영을 풍자합니다.",
         "cast": {
@@ -191,7 +227,6 @@ musicals_data = [
     },
     {
         "title": "맘마미아!",
-        "origin": "영국",
         "background_css": "linear-gradient(135deg, #0066cc, #0099ff, #66ccff)", # 지중해의 푸른 바다와 하늘
         "summary": "그리스의 작은 섬에서 엄마 '도나'와 사는 딸 '소피'가 자신의 결혼식을 앞두고 아빠일 가능성이 있는 세 남자를 초대하며 벌어지는 유쾌한 소동을 그립니다.",
         "cast": {
@@ -202,7 +237,6 @@ musicals_data = [
     },
     {
         "title": "킹키부츠",
-        "origin": "미국",
         "background_css": "linear-gradient(135deg, #cc0000, #ff3333, #ff6666)", # 강렬하고 화려한 붉은 부츠
         "summary": "폐업 위기에 처한 구두 공장을 물려받은 '찰리'가 드랙퀸 '롤라'를 만나 여장 남자를 위한 부츠 '킹키부츠'를 만들면서 벌어지는 신나는 이야기입니다.",
         "cast": {
@@ -213,7 +247,6 @@ musicals_data = [
     },
     {
         "title": "그날들",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #333333, #666666)", # 흑백 사진 속 아련한 추억
         "summary": "故 김광석의 노래들로 이루어진 주크박스 뮤지컬. 청와대 경호실을 배경으로 20년 전 사라진 '그녀'와 경호원의 미스터리한 사건을 그립니다.",
         "cast": {
@@ -224,7 +257,6 @@ musicals_data = [
     },
     {
         "title": "서편제",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #8c6a4a, #d9b38c)", # 한지, 먹의 번짐, 소리의 길
         "summary": "이청준의 동명 소설을 원작으로, 소리꾼 아버지 '유봉'과 그의 딸 '송화', 아들 '동호'의 한과 예술혼이 담긴 삶을 한국적인 정서와 음악으로 풀어낸 작품입니다.",
         "cast": {
@@ -235,7 +267,6 @@ musicals_data = [
     },
     {
         "title": "팬텀",
-        "origin": "미국",
         "background_css": "linear-gradient(135deg, #a0a0a0, #333333, #000000)", # 가면 뒤의 슬픔, 차가운 지하
         "summary": "'오페라의 유령' 에릭의 인간적인 면모에 초점을 맞춰, 그의 비극적인 과거와 천재성, 그리고 크리스틴을 향한 순수한 사랑을 깊이 있게 다룬 작품입니다.",
         "cast": {
@@ -246,7 +277,6 @@ musicals_data = [
     },
     {
         "title": "베르테르",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #ffcc00, #663300)", # 해바라기, 순수한 사랑의 열병
         "summary": "괴테의 소설 '젊은 베르테르의 슬픔'을 원작으로, '롯데'를 향한 '베르테르'의 순수하고도 열정적인 사랑과 그로 인한 깊은 고뇌를 서정적인 음악으로 풀어냅니다.",
         "cast": {
@@ -257,7 +287,6 @@ musicals_data = [
     },
     {
         "title": "스위니토드",
-        "origin": "미국",
         "background_css": "linear-gradient(135deg, #660000, #1a1a1a)", # 피의 복수, 어두운 런던 골목
         "summary": "19세기 런던, 억울한 옥살이를 하고 돌아온 이발사 '벤자민 바커'가 '스위니 토드'로 이름을 바꾸고, 자신을 불행에 빠뜨린 자들에게 잔혹한 복수를 하는 이야기입니다.",
         "cast": {
@@ -268,7 +297,6 @@ musicals_data = [
     },
     {
         "title": "팬레터",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #4a3a2a, #f0e6d6)", # 낡은 편지지, 1930년대 경성
         "summary": "1930년대 경성을 배경으로, 천재 소설가 '김해진'과 그를 동경하는 작가 지망생 '정세훈', 그리고 비밀에 싸인 천재 여류작가 '히카루'의 이야기를 다룬 미스터리 드라마입니다.",
         "cast": {
@@ -279,7 +307,6 @@ musicals_data = [
     },
     {
         "title": "벤허",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #bf8f30, #4a2a00)", # 사막의 모래, 장대한 서사
         "summary": "귀족 가문의 자제였던 '유다 벤허'가 친구의 배신으로 노예로 전락한 후, 역경을 딛고 복수에 나서는 과정을 그린 장대한 스케일의 창작 뮤지컬입니다.",
         "cast": {
@@ -290,7 +317,6 @@ musicals_data = [
     },
     {
         "title": "빨래",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #66ccff, #ffffff)", # 맑게 갠 하늘, 따뜻한 햇살
         "summary": "서울의 한 달동네를 배경으로, 서점에서 일하는 '나영'과 몽골 출신 이주노동자 '솔롱고'를 비롯한 서민들의 팍팍하지만 따뜻한 삶의 이야기를 그립니다.",
         "cast": {
@@ -301,7 +327,6 @@ musicals_data = [
     },
     {
         "title": "마리 퀴리",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #003333, #006666, #ccffff)", # 라듐의 푸른 빛, 지성의 차가움
         "summary": "최초로 노벨상을 두 번 수상한 위대한 과학자 '마리 퀴리'의 삶을 다룹니다. 자신의 연구가 초래한 비극에 맞서며 진실을 찾아가는 그녀의 고뇌와 신념을 그립니다.",
         "cast": {
@@ -312,7 +337,6 @@ musicals_data = [
     },
     {
         "title": "어쩌면 해피엔딩",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #ff9966, #ffcc99)", # 반딧불, 따뜻한 LP판의 감성
         "summary": "가까운 미래, 인간을 돕기 위해 만들어졌지만 구형이 되어 버려진 로봇 '올리버'와 '클레어'가 만나 사랑과 삶의 의미를 배워가는 따뜻하고 서정적인 이야기입니다.",
         "cast": {
@@ -322,7 +346,6 @@ musicals_data = [
     },
     {
         "title": "호프",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #663300, #996633)", # 낡은 원고, 법정의 무게감
         "summary": "현대 문학의 거장 요제프 클라인의 미발표 원고를 평생 지켜온 78세 노인 '에바 호프'의 삶을 통해, 원고가 곧 자신이었던 한 인간의 인생을 그립니다.",
         "cast": {
@@ -332,7 +355,6 @@ musicals_data = [
     },
     {
         "title": "광화문 연가",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #333399, #6666cc)", # 보랏빛 노을, 아련한 추억
         "summary": "죽음을 앞둔 주인공 '명우'가 마지막 1분을 앞두고 '월하'와 함께 떠나는 시간 여행을 통해 자신의 젊은 날의 사랑과 우정을 되돌아보는 이야기입니다.",
         "cast": {
@@ -343,7 +365,6 @@ musicals_data = [
     },
     {
         "title": "사의 찬미",
-        "origin": "대한민국",
         "background_css": "linear-gradient(135deg, #003366, #336699, #99aabb)", # 현해탄의 푸른 물결, 비극적 낭만
         "summary": "1920년대 경성, 천재 극작가 김우진과 조선 최초의 소프라노 윤심덕의 비극적인 사랑과 실화를 바탕으로 한 뮤지컬입니다.",
         "cast": {
@@ -355,31 +376,13 @@ musicals_data = [
 ]
 
 # --- 동적 배경 설정 함수 ---
-def set_background(theme_gradient, flag_url=""):
-    # 플래그 URL이 있으면 배경 이미지에 추가
-    if flag_url:
-        # 여러 배경 이미지를 쉼표로 구분하여 적용
-        # 1. 국기 이미지 (반투명)
-        # 2. 테마 그라데이션
-        background_image_css = f"url({flag_url}), {theme_gradient}"
-        background_size_css = "150px, cover" # 국기 크기, 그라데이션 크기
-        background_repeat_css = "no-repeat, no-repeat"
-        background_position_css = "bottom 20px right 20px, center" # 국기 위치, 그라데이션 위치
-    else:
-        background_image_css = theme_gradient
-        background_size_css = "cover"
-        background_repeat_css = "no-repeat"
-        background_position_css = "center"
-
+def set_background(css_string):
     st.markdown(f"""
     <style>
     .stApp {{
-        background-image: {background_image_css};
+        background-image: {css_string};
         background-attachment: fixed;
-        background-size: {background_size_css};
-        background-repeat: {background_repeat_css};
-        background-position: {background_position_css};
-        background-blend-mode: overlay; /* 국기 이미지를 자연스럽게 혼합 */
+        background-size: cover;
         color: #e0e0e0;
     }}
     /* 나머지 스타일은 여기에 유지 */
@@ -405,19 +408,20 @@ search_term = st.text_input("", placeholder="뮤지컬 제목 또는 배우 이�
 # 검색 로직
 filtered_musicals = []
 if search_term:
-    # 검색어가 있을 경우, 데이터 전체를 순회하며 필터링
-    search_term_lower = search_term.lower()
+    # 띄어쓰기를 제거하여 검색 정확도 향상
+    search_term_no_space = search_term.replace(" ", "").lower()
     for musical in musicals_data:
-        # 1. 뮤지컬 제목에 검색어가 포함되어 있는지 확인
-        if search_term_lower in musical['title'].lower():
+        # 1. 뮤지컬 제목에 검색어가 포함되어 있는지 확인 (띄어쓰기 무시)
+        title_no_space = musical['title'].replace(" ", "").lower()
+        if search_term_no_space in title_no_space:
             filtered_musicals.append(musical)
             continue # 다음 뮤지컬로 넘어감
 
-        # 2. 배우 이름에 검색어가 포함되어 있는지 확인
+        # 2. 배우 이름에 검색어가 포함되어 있는지 확인 (띄어쓰기 무시)
         found_in_cast = False
         for role, actors in musical['cast'].items():
             for actor in actors:
-                if search_term_lower in actor.lower():
+                if search_term_no_space in actor.replace(" ", "").lower():
                     filtered_musicals.append(musical)
                     found_in_cast = True
                     break # 배우를 찾았으면 다음 역할로
@@ -432,10 +436,8 @@ else:
 default_bg = "linear-gradient(135deg, #1a2a6c, #000000)"
 
 if len(filtered_musicals) == 1:
-    # 검색 결과가 하나일 경우, 해당 뮤지컬의 테마 배경과 국기 적용
-    selected_musical = filtered_musicals[0]
-    flag_url = flags.get(selected_musical['origin'], "")
-    set_background(selected_musical['background_css'], flag_url)
+    # 검색 결과가 하나일 경우, 해당 뮤지컬의 테마 배경 적용
+    set_background(filtered_musicals[0]['background_css'])
 else:
     # 검색 결과가 없거나 여러 개일 경우, 기본 배경 적용
     set_background(default_bg)
