@@ -26,8 +26,9 @@ h1, h2, h3 {
 
 /* 검색창 스타일 */
 .stTextInput > div > div > input {
-    background-color: rgba(255, 255, 255, 0.9); /* 배경을 밝게 변경 */
-    color: #000000; /* 텍스트 색상을 검은색으로 변경 */
+    background-color: #000000; /* 배경을 검은색으로 변경 */
+    color: #FFFFFF; /* 텍스트 색상을 흰색으로 변경 */
+    border: 1px solid #C0A062; /* 골드 테두리 추가 */
     border-radius: 20px;
     text-align: center; /* 검색창 텍스트 가운데 정렬 */
 }
