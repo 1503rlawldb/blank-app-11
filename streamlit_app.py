@@ -29,12 +29,14 @@ h1, h2, h3 {
     background-color: rgba(255, 255, 255, 0.1);
     color: #ffffff;
     border-radius: 20px;
+    text-align: center; /* 검색창 텍스트 가운데 정렬 */
 }
 
 /* 확장(expander) 컴포넌트 스타일 */
 .stExpander {
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
+    text-align: center; /* 확장 내부 텍스트 가운데 정렬 */
 }
 .stExpander header {
     color: #e0e0e0 !important;
@@ -43,6 +45,15 @@ h1, h2, h3 {
 /* 구분선 색상 */
 hr {
     background-color: #444444;
+}
+
+/* 검색 결과 알림창 스타일 */
+div[data-baseweb="alert"] {
+    background-color: #000000 !important; /* 검은색 배경 */
+    color: #FFFFFF !important; /* 흰색 텍스트 */
+    border: 1px solid #C0A062 !important; /* 골드 테두리 추가 */
+    border-radius: 10px;
+    text-align: center; /* 알림창 텍스트 가운데 정렬 */
 }
 
 </style>
@@ -377,8 +388,9 @@ def set_background(css_string):
 # --- 앱 UI 구성 ---
 
 # 제목과 부제
-st.title("🎭 한국 뮤지컬 대백과")
-st.write("한국 뮤지컬의 모든 것을 한눈에! 제목과 배우 이름으로 검색해보세요.")
+st.markdown("<h1 style='text-align: center;'>🎭 한국 뮤지컬 대백과</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>한국 뮤지컬의 모든 것을 한눈에! 제목과 배우 이름으로 검색해보세요.</p>", unsafe_allow_html=True)
+
 
 # 검색창
 search_term = st.text_input("", placeholder="뮤지컬 제목 또는 배우 이름을 검색하세요...", label_visibility="collapsed")
@@ -430,13 +442,13 @@ else:
     st.divider() # 구분선
 
     for musical in filtered_musicals:
-        st.markdown(f"## <span style='color: #C0A062;'>{musical['title']}</span>", unsafe_allow_html=True)
-        st.write(musical['summary'])
+        st.markdown(f"<h2 style='text-align: center; color: #C0A062;'>{musical['title']}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<p style='text-align: center;'>{musical['summary']}</p>", unsafe_allow_html=True)
 
         # 출연진 정보는 확장 가능한 형태로 보여줌
         with st.expander("역대 주요 출연진 보기"):
             for role, actors in musical['cast'].items():
                 # st.markdown을 사용하여 굵은 글씨와 함께 배우 목록을 깔끔하게 표시
-                st.markdown(f"**{role}:** {', '.join(actors)}")
+                st.markdown(f"<p style='text-align: center;'><strong>{role}:</strong> {', '.join(actors)}</p>", unsafe_allow_html=True)
         
         st.divider() # 각 뮤지컬 정보 사이에 구분선 추가
