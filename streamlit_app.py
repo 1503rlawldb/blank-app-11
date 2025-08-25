@@ -16,12 +16,12 @@ st.markdown("""
     background-image: linear-gradient(135deg, #1a2a6c, #000000);
     background-attachment: fixed;
     background-size: cover;
-    color: #e0e0e0; /* 기본 텍스트 색상을 밝게 */
+    color: #D4AF37; /* 기본 텍스트 색상을 골드로 변경 */
 }
 
 /* 헤더와 제목 색상 */
 h1, h2, h3 {
-    color: #ffffff;
+    color: #D4AF37; /* 골드 색상 */
 }
 
 /* 검색창 스타일 */
@@ -40,7 +40,7 @@ h1, h2, h3 {
     text-align: center; /* 확장 내부 텍스트 가운데 정렬 */
 }
 .stExpander header {
-    color: #e0e0e0 !important;
+    color: #D4AF37 !important; /* 확장 헤더 텍스트 골드 */
 }
 
 /* 구분선 색상 */
