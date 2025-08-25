@@ -84,21 +84,6 @@ strong {
     border-color: #C0A062 !important;
 }
 
-
-/* 반짝이는 효과 애니메이션 */
-@keyframes glow {
-    0% { box-shadow: 0 0 5px #D4AF37; }
-    50% { box-shadow: 0 0 20px #D4AF37, 0 0 30px #D4AF37; }
-    100% { box-shadow: 0 0 5px #D4AF37; }
-}
-
-.flash-effect {
-    animation: glow 1.5s ease-in-out 2; /* 1.5초 애니메이션을 2번 반복 (총 3초) */
-    border-radius: 10px; /* 애니메이션이 부드럽게 보이도록 */
-    padding: 1em;
-    margin-bottom: 1em;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
