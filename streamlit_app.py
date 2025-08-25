@@ -57,6 +57,15 @@ div[data-baseweb="alert"] {
     text-align: center; /* 알림창 텍스트 가운데 정렬 */
 }
 
+/* 모든 p 태그(줄거리, 배우 목록 등) 색상 고정 */
+p {
+    color: #D4AF37;
+}
+
+strong {
+    color: #D4AF37;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
